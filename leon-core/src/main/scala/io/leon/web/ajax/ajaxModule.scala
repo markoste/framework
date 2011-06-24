@@ -70,20 +70,32 @@ class BrowserJsFileServlet @Inject()(injector: Injector) extends HttpServlet {
 
   private def createJavaScriptFunctionDeclaration(name: String): String = {
     """
-    leon.utils.createVar("%s");
-    %s = function (methodName) {
-      return function() {
-        var argLength = arguments.length - 1;
-        var args = Array(argLength);
-        for (var i = 0; i < argLength; i++) {
-          args[i] = arguments[i];
-        }
-        var callback = arguments[arguments.length - 1];
+leon.utils.createVar("person");
+person = function (methodName) {
+  return function() {
 
-        leon.call("%s." + methodName, args, callback);
-      };
+  if(arguments.length > 0){
+
+    var callback = null;
+    if ((typeof arguments[arguments.length - 1])  == "function"){
+        callback = arguments[arguments.length - 1];
     }
-    """.format(name, name, name)
+
+    var argLength = arguments.length - 1;
+    var args = Array(argLength);
+    for (var i = 0; i < argLength; i++) {
+      args[i] = arguments[i];
+    }
+
+    leon.call("person." + methodName, args, callback);
+
+  } else {
+    leon.call("person." + methodName, null, null);
+  }
+
+  };
+}
+""".format(name, name, name)
   }
 
 }

@@ -27,14 +27,17 @@
         this.savePerson = function() {
             person("save")(5, ko.toJS(this), function(result) {
                 console.log("ajax call result firstname: " + result.firstName);
-            });
-        }
+            person("print")();
+        });
+
+    }
 
     };
     $(function() { ko.applyBindings(new ViewModel()) });
 </script>
 
 <a href="#" onclick="leon.registerPage();">Active Uplink</a> <br/>
+<a href="#" onclick="person('print')();">Print</a> <br/>
 
 Person:
 

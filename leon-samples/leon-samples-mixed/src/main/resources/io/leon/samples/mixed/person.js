@@ -23,7 +23,12 @@ var person = (function() {
                 firstName: person.firstName,
                 lastName: person.lastName
             };
+        },
+
+        print: function() {
+            java.lang.System.out.println("calls: " + calls);
         }
+
     };
 
 })();
