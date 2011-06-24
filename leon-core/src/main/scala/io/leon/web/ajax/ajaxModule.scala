@@ -70,8 +70,8 @@ class BrowserJsFileServlet @Inject()(injector: Injector) extends HttpServlet {
 
   private def createJavaScriptFunctionDeclaration(name: String): String = {
     """
-leon.utils.createVar("person");
-person = function (methodName) {
+leon.utils.createVar("%s");
+%s = function (methodName) {
   return function() {
 
   if(arguments.length > 0){
@@ -87,15 +87,15 @@ person = function (methodName) {
       args[i] = arguments[i];
     }
 
-    leon.call("person." + methodName, args, callback);
+    leon.call("%s." + methodName, args, callback);
 
   } else {
-    leon.call("person." + methodName, null, null);
+    leon.call("%s." + methodName, null, null);
   }
 
   };
 }
-""".format(name, name, name)
+""".format(name, name, name, name)
   }
 
 }
